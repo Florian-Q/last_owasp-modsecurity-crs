@@ -12,7 +12,7 @@ RUN OFFICIAL_DEPO="https://github.com/SpiderLabs/owasp-modsecurity-crs.git" \
 	    tar \
 	# get last number version of tag "refs/tags/vX.X.X"
 	&& LAST_VERSION=$(git ls-remote --tags $OFFICIAL_DEPO | \
-		grep '[0-9]\+\.[0-9]\+\.[0-9]$' | \
+		grep -o '[0-9]\+\.[0-9]\+\.[0-9]$' | \
 		sort -n | tail -1 ) \
 	&& echo "the last version of OWASP ModSecurity Core Rule Set is : $LAST_VERSION" \
 	# Download and extract
