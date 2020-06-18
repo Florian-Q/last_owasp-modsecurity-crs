@@ -5,7 +5,6 @@ ENV PATH_OWASP_EXTRACT /owasp-modsecurity-crs
 
 WORKDIR /tmp/owasp-modsecurity-crs
 
-RUN OFFICIAL_DEPO="https://github.com/coreruleset/coreruleset.git"
 RUN apt-get update && apt-get install -y --no-install-recommends --no-install-suggests \
 		ca-certificates \
 	    git \
@@ -14,7 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends --no-install-su
 	&& apt-get clean && rm -rf /var/lib/apt/lists/*
 
 	# get last number version of tag "refs/tags/vX.X.X"
-RUN LAST_VERSION=$(git ls-remote --tags $OFFICIAL_DEPO | \
+RUN LAST_VERSION=$(git ls-remote --tags "https://github.com/coreruleset/coreruleset.git" | \
 		grep -o '[0-9]\+\.[0-9]\+\.[0-9]$' | \
 		sort -n | tail -1 ) \
 	&& echo "the last version of OWASP ModSecurity Core Rule Set is : $LAST_VERSION"
