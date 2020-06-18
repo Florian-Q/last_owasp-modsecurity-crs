@@ -16,10 +16,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends --no-install-su
 RUN LAST_VERSION=$(git ls-remote --tags "https://github.com/coreruleset/coreruleset.git" | \
 		grep -o '[0-9]\+\.[0-9]\+\.[0-9]$' | \
 		sort -n | tail -1 ) \
-	&& echo "the last version of OWASP ModSecurity Core Rule Set is : $LAST_VERSION"
-
+	&& echo "the last version of OWASP ModSecurity Core Rule Set is : $LAST_VERSION" \
 	# Download and extract
-RUN curl -s https://github.com/coreruleset/coreruleset/archive/v${LAST_VERSION}.tar.gz --output modsec.tar.gz \
+	&& curl -sL https://github.com/coreruleset/coreruleset/archive/v${LAST_VERSION}.tar.gz --output modsec.tar.gz \
 	&& tar -zxf modsec.tar.gz \
-	&& mv "owasp-modsecurity-crs-$LAST_VERSION" $PATH_OWASP_EXTRACT \
+	&& mv "coreruleset-$LAST_VERSION" $PATH_OWASP_EXTRACT \
 	&& cp $PATH_OWASP_EXTRACT/crs-setup.conf.example $PATH_OWASP_EXTRACT/crs-setup.conf
